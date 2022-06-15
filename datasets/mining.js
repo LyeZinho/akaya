@@ -53,6 +53,33 @@ function addResponse(tag, res) {
     fs.writeFileSync(path.join(__dirname, '../datasets/responses.json'), JSON.stringify(responses));
 }
 
+
+/*
+Retrive all tags from imput directory
+ - Tags == file names in imput directory
+
+Create an array of json objects with the index number and the name of the tag
+Pattern: 
+{
+    "code": 0, <-- index
+    "name": "greetings" <-- tag
+}
+
+write the array to the json file
+*/
+function tagLister(){
+    let tags = fs.readdirSync(path.join(__dirname, '../datasets/imput'));
+    let tagsList = [];
+    for(let i = 0; i < tags.length; i++){
+        tagsList.push({
+            code: i,
+            name: tags[i].split('.')[0]
+        });
+    }
+    fs.writeFileSync(path.join(__dirname, '../datasets/tags.json'), JSON.stringify(tagsList));
+}
+
+
 //Inset new traing data to the train.json array 
 // - Recive a tag and a sentence
 // - Create a new object with the tag and sentence
@@ -72,10 +99,29 @@ function addTrainingData(tag, sentence) {
     if (!files.includes(tag + '.txt')) {
         fs.appendFileSync(path.join(__dirname, '../datasets/imput/' + tag + '.txt'), sentence + '\n');
     }
+
 }
 
 
+//Find tag in the tags.json file
+// - Recive a tag name
+// - Find the tag inside the tags array
+// - Return the object with the tag
+function findTagByName(tag) {
+    let tags = JSON.parse(fs.readFileSync(path.join(__dirname, '../datasets/tags.json'), 'utf8'));
+    let tagObject = tags.find(item => item.tag === tag);
+    return tagObject.code;
+}
 
+//Find tag in the tags.json file
+// - Recive a tag code
+// - Find the tag inside the tags array
+// - Return the object with the tag
+function findTagByCode(code) {
+    let tags = JSON.parse(fs.readFileSync(path.join(__dirname, '../datasets/tags.json'), 'utf8'));
+    let tagObject = tags.find(item => item.code === code);
+    return tagObject.code;
+}
 
 
 module.exports = {
@@ -83,5 +129,8 @@ module.exports = {
     loadResponses,
     getResponse,
     addResponse,
-    addTrainingData
+    addTrainingData,
+    tagLister,
+    findTagByName,
+    findTagByCode
 }

@@ -1,9 +1,8 @@
 const natural = new require('natural');
-const { Console } = require('console');
-const fs = require('fs');
-const path = require('path');
-const mine = require('./datasets/mining')
-
+const { Console } = new require('console');
+const fs = new require('fs');
+const path = new require('path');
+const mine = require('./datasets/mining');
 //Tokenize a sentence
 function tokenize(sentence){
     tokenizer = new natural.TreebankWordTokenizer();
@@ -60,17 +59,21 @@ function loadTrain(dictionary){
         let bow = creatBoW(item.value, dictionary);
         trainingSet.push({
             input: bow,
-            output: {"tag":item.tag, "value":0.90}
+            output: {"value":1, "tag": }
         });
     });
+    console.log(trainingSet);
     return trainingSet;
 }
 
-let dataset = mine.loadDataset();
-console.log(dataset);
 
-let dictionary = createDictionary(dataset);
-console.log(dictionary);
 
-let train = loadTrain(dictionary);
-console.log(train);
+module.exports = {  
+    tokenize,
+    stemmer,
+    createDictionary,
+    creatBoW,
+    loadTrain
+}
+
+
