@@ -1,17 +1,1 @@
-[
-    {
-        "tag":"farwell",
-        "response":[
-            "Goodbye",
-            "Bye",
-            "See you later"
-        ]
-    },
-    {
-        "tag":"questionsgreeting",
-        "response":[
-            "im fine and how are you?",
-            "Im having a good day"
-        ]
-    }
-]
+[{"tag":"farwell","response":["Goodbye","Bye","See you later"]},{"tag":"questionsgreeting","response":["im fine and how are you?","Im having a good day"]},{"tag":"greetings","response":["Hello","Hello how are you?","Hi"]}]

@@ -1,6 +1,1 @@
-[
-    {
-        "value":"how are you?",
-        "tag":"questionsgreetings"
-    }
-]
+[{"value":"how are you?","tag":"questionsgreetings"},{"tag":"greeting","value":"Hello, how are you?"},{"tag":"questiontime","value":"you can tell me the time?"},{"tag":"questiontime","value":"you can tell me the time?"}]

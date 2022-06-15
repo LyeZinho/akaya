@@ -9,6 +9,7 @@
   "author": "lyezinho",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
     "brain.js": "^2.0.0-beta.15",
     "natural": "^5.2.2"
   }

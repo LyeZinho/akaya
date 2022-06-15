@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-
+/*
+Functions for data mining <- Getting and filtering data
+and data modelling <- Insert and care the data
+*/
 
 
 //Read all txt files in imput directory
@@ -37,9 +40,48 @@ function getResponse(tag) {
     return response.response[index];
 }
 
-console.log(getResponse("farwell", 0.5));
+//Add new response for specific tag
+// - Recive a tag and a response
+// - Find the tag inside the responses array
+// - Add the response given to the tag response array
+// - Append the new response to the responses array
+// - Write the new responses array to the json file
+function addResponse(tag, res) {
+    let responses = loadResponses();
+    let response = responses.find(item => item.tag === tag);
+    response.response.push(res);
+    fs.writeFileSync(path.join(__dirname, '../datasets/responses.json'), JSON.stringify(responses));
+}
+
+//Inset new traing data to the train.json array 
+// - Recive a tag and a sentence
+// - Create a new object with the tag and sentence
+// - Append the new object to the train.json array
+// - Save the new array to the json file
+// - Verify if the tag given existis in imput directory
+//  - tag.txt <- format
+// - if not create a new file with the tag name and append the sentence to the file
+function addTrainingData(tag, sentence) {
+    let train = JSON.parse(fs.readFileSync(path.join(__dirname, '../datasets/train.json'), 'utf8'));
+    train.push({
+        tag: tag,
+        value: sentence
+    });
+    fs.writeFileSync(path.join(__dirname, '../datasets/train.json'), JSON.stringify(train));
+    let files = fs.readdirSync(path.join(__dirname, '../datasets/imput'));
+    if (!files.includes(tag + '.txt')) {
+        fs.appendFileSync(path.join(__dirname, '../datasets/imput/' + tag + '.txt'), sentence + '\n');
+    }
+}
+
+
+
+
 
 module.exports = {
     loadDataset,
-    getResponse
+    loadResponses,
+    getResponse,
+    addResponse,
+    addTrainingData
 }
