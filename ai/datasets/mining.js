@@ -26,30 +26,45 @@ function loadResponses(){
     let responses = [];
     let file = fs.readFileSync(path.join(__dirname, '../datasets/responses.json'), 'utf8');
     responses = JSON.parse(file);
+    for(let i = 0; i < responses.length; i++){
+        console.log(responses[i].tag);
+        console.log(responses[i].response);
+    }
     return responses;
 }
 
-/*
-Find the object in the array that has the same tag as the input
-Pick a random index from response and return
-*/
+//Load the responses.json file
+//Loop through the array and the objects with the tag
+// - If the tag existis pick a random response from the response array
+// - If not return an alert string
 function getResponse(tag) {
-    let responses = loadResponses();
-    let response = responses.find(item => item.tag === tag);
-    let index = Math.floor(Math.random() * response.response.length);
-    return response.response[index];
+    let responseList = loadResponses();
+    console.log(tag);
+    let response = responseList.find(item => item.tag === tag);
+    if (response === undefined) {
+        return "Im so confused, I don't know what to say";
+    } else {
+        let index = Math.floor(Math.random() * response.response.length);
+        return response.response[index];
+    }
 }
 
 //Add new response for specific tag
-// - Recive a tag and a response
-// - Find the tag inside the responses array
-// - Add the response given to the tag response array
-// - Append the new response to the responses array
-// - Write the new responses array to the json file
+// load the responses.json file
+// loop through the array and verify if the tag existis
+// if not create a new object with the tag and the response array and push to the response array
+// if yes add the response to the response array
 function addResponse(tag, res) {
-    let responses = loadResponses();
+    let responses = JSON.parse(fs.readFileSync(path.join(__dirname, '../datasets/responses.json'), 'utf8'));
     let response = responses.find(item => item.tag === tag);
-    response.response.push(res);
+    if (response === undefined) {
+        responses.push({
+            tag: tag,
+            response: [res]
+        });
+    } else {
+        response.response.push(res);
+    }
     fs.writeFileSync(path.join(__dirname, '../datasets/responses.json'), JSON.stringify(responses));
 }
 
@@ -102,6 +117,8 @@ function addTrainingData(tag, sentence) {
 
 }
 
+// addTrainingData('greetings', 'Hi');
+
 
 //Find tag in the tags.json file
 // - Recive a tag name
@@ -128,7 +145,7 @@ module.exports = {
     loadDataset,
     loadResponses,
     getResponse,
-    addResponse,
+    //addResponse,
     addTrainingData,
     tagLister,
     findTagByName,

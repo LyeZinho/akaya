@@ -23,16 +23,23 @@ net.train(train, {
         learningRate: 0.3
 });
 
-let word = utils.creatBoW('How are you?', dictionary);
+
+let imput = 'Hi'
+let word = utils.creatBoW(imput, dictionary);
 
 let output = net.run(word);
 
 
+
 //Save the model using fs
 fs.writeFileSync(path.join(__dirname, './datasets/model.json'), JSON.stringify(net.toJSON()));
-
-
-
-console.log("----------------------------------------------")
-console.log(`${utils.outputFilter(output)}  ---  ${output[utils.outputFilter(output)]}`);
-console.log("----------------------------------------------")
+console.log("________________________________________________")
+console.log(output);
+console.log("________________________________________________")
+console.log("------------------[Test]------------------------")
+console.log(`[${utils.outputFilter(output)}]  ---  [${output[utils.outputFilter(output)]}]`);
+console.log("Percentage of success: " + (output[utils.outputFilter(output)] * 100).toFixed(2).toString() + "%");
+console.log("------------------------------------------------")
+console.log(`input -> ${imput}`);
+console.log('response ->' + mine.getResponse(utils.outputFilter(output)))
+console.log("------------------------------------------------")
