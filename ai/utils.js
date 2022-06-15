@@ -48,6 +48,37 @@ function creatBoW(sentence, dictionary){
     return bow;
 }
 
+
+//Training factory function
+function trainFactory(imput, tagname) {
+    var tag = {};
+    tag[tagname] = 1;
+    var train = {
+        input: imput,
+        output: tag
+    }
+    return train;
+}
+
+// Select the name of the highest value from the output
+function outputFilter(output) {
+    let max = 0;
+    let tag = '';
+    for(var i in output) {
+        if(output[i] > max) {
+            max = output[i];
+            tag = i;
+        }
+    }
+    let valueRaw = output[tag];
+
+    let result = {
+        tag: tag,
+        value: valueRaw
+    }
+    return tag;
+}
+
 //Create a training set
 //Recive a json array from ./datasets/train.json
 //for each item in array create a train model
@@ -57,10 +88,8 @@ function loadTrain(dictionary){
     let train = JSON.parse(fs.readFileSync(path.join(__dirname, './datasets/train.json'), 'utf8'));
     train.forEach(item => {
         let bow = creatBoW(item.value, dictionary);
-        trainingSet.push({
-            input: bow,
-            output: {"value":1, "tag": }
-        });
+        let trainModel = trainFactory(bow, item.tag);
+        trainingSet.push(trainModel);
     });
     console.log(trainingSet);
     return trainingSet;
@@ -73,7 +102,9 @@ module.exports = {
     stemmer,
     createDictionary,
     creatBoW,
-    loadTrain
+    loadTrain,
+    trainFactory,
+    outputFilter
 }
 
 
