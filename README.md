@@ -16,7 +16,9 @@
 ```sh
 git clone https://github.com/LyeZinho/akaya.git
 ```
-
+```sh
+cd akaya
+```
 ```sh
 npm install
 ```
