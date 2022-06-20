@@ -100,24 +100,27 @@ function tagLister(){
 // - Create a new object with the tag and sentence
 // - Append the new object to the train.json array
 // - Save the new array to the json file
-// - Verify if the tag given existis in imput directory
-//  - tag.txt <- format
-// - if not create a new file with the tag name and append the sentence to the file
-function addTrainingData(tag, sentence) {
+// - Verify if the tag given existis in imput directory 
+// - if not create a new file with the tag name and append the sentence to the end of the file
+// - if yes append the sentence to the end of the file
+function insertTrainingData(tag, sentence){
     let train = JSON.parse(fs.readFileSync(path.join(__dirname, '../datasets/train.json'), 'utf8'));
     train.push({
         tag: tag,
-        value: sentence
+        sentence: sentence
     });
     fs.writeFileSync(path.join(__dirname, '../datasets/train.json'), JSON.stringify(train));
     let files = fs.readdirSync(path.join(__dirname, '../datasets/imput'));
-    if (!files.includes(tag + '.txt')) {
+    let file = files.find(item => item.split('.')[0] === tag);
+    if(file === undefined){
         fs.appendFileSync(path.join(__dirname, '../datasets/imput/' + tag + '.txt'), sentence + '\n');
     }
-
+    else{
+        fs.appendFileSync(path.join(__dirname, '../datasets/imput/' + tag + '.txt'), sentence + '\n');
+    }
 }
 
-// addTrainingData('greetings', 'Hi');
+
 
 
 //Find tag in the tags.json file
@@ -146,7 +149,7 @@ module.exports = {
     loadResponses,
     getResponse,
     //addResponse,
-    addTrainingData,
+    insertTrainingData,
     tagLister,
     findTagByName,
     findTagByCode

@@ -24,7 +24,7 @@ net.train(train, {
 });
 
 
-let imput = 'Hi'
+let imput = 'How are you?'
 let word = utils.creatBoW(imput, dictionary);
 
 let output = net.run(word);
