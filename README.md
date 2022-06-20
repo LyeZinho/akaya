@@ -37,9 +37,7 @@ Node 1.16 or greather
 👤 **LyePedro**
 
 * Website: www.lyepedro.studio
-* Twitter: [@PedroKalebDeJe1](https://twitter.com/PedroKalebDeJe1)
 * Github: [@LyeZinho](https://github.com/LyeZinho)
-* LinkedIn: [@Pedro Kaleb De Jesus](https://linkedin.com/in/Pedro Kaleb De Jesus)
 
 ## 🤝 Contributing
 
