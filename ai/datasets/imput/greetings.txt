@@ -1,4 +1,2 @@
 Hi
-HelloOhayo
-Ohayo
-Ohayo
+Hello
