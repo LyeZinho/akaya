@@ -44,7 +44,7 @@ console.log(output);
 console.log("________________________________________________")
 console.log("------------------[Test]------------------------")
 console.log(`[${utils.outputFilter(output)}]  ---  [${output[utils.outputFilter(output)]}]`);
-console.log("Percentage of success: " + (output[utils.outputFilter(output)] * 100).toFixed(2).toString() + "%");
+console.log("Accuracy: " + (output[utils.outputFilter(output)] * 100).toFixed(2).toString() + "%");
 console.log("------------------------------------------------")
 console.log(`input -> ${imput}`);
 console.log('response ->' + mine.getResponse(utils.outputFilter(output)))
