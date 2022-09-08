@@ -1,8 +1,9 @@
+require('dotenv').config()
+const chalk = require("chalk");
+const systemStatus = require('./modules/sysinfo')
 const { Client } = require("discord.js")
-const { SlashCommandsBuilder } = require("@discordjs/builders")
-
 const client = new Client({
-    intents: 131071,
+    intents: 3276799,
     restTimeOffset: 0,
     allowedMentions: {
         everyone: false,
@@ -17,17 +18,17 @@ const client = new Client({
         status: "dnd",
     }
 })
-const { token } = require("./config.json");
 
 
-client.once("ready", () => {
-    console.log("Ready!");
-});
 
-const allSlashCommands = [];
 
-const pingCommand = new SlashCommandsBuilder()
-    .setName("ping")
-    .setDescription("Ping command")
+client.on("ready", () => {
+    const log = console.log;
+    console.log(`Logged in as ${client.user.tag}!`)
+    systemStatus.systemInfo();
+    log(chalk.green("All the systems are up and running!"));
+})
 
-client.login(token);
+
+
+client.login(process.env.token);

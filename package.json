@@ -14,7 +14,7 @@
     "brain.js": "^2.0.0-beta.15",
     "chalk": "^4.1.2",
     "discord.js": "^13.8.0",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "glob": "^8.0.3",
     "natural": "^5.2.2",
     "systeminformation": "^5.11.20"
